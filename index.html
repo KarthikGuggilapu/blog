@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GK | BLOG</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script>
+        window.onload=function(){
+            setTimeout(function() {
+                window.scrollTo(0, 1)
+            }, 0);
+        };
+    </script>
+</head>
+<body>
+
+    <!-- Header nav  -->
+    <header>
+        <a href="#" class="brand">GK CREATIONS</a>
+        <div class="menu-btn"></div>
+            <div class="nav">
+                <div class="nav-items">
+                    <a href="#home">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#">Explore</a>
+                    <a href="#">Contact</a>
+                </div>
+            </div>
+    </header>
+
+    <section class="home" id="home">
+        <video class="video-slide active" src="assets/sky.mp4" autoplay muted loop></video>
+        <div class="content active">
+            <h1>I am a <br> 
+                <span>
+                    <a href="" class="typewrite" data-period="2000" data-type='[ "Web Developer", "Mobile Photographer" ]'>
+                        <span class="wrap"></span>
+                    </a>
+                </span>
+            </h1>
+        </div>
+        <div class="media-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a> 
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+    </section>
+
+    <section class="About" id="about">
+        <h1>About</h1>
+    </section>
+    <!-- Scripts -->
+
+    <!-- Menu Script -->
+    <script type="text/javascript">
+        const menuBtn = document.querySelector(".menu-btn");
+        const nav = document.querySelector(".nav");
+
+        menuBtn.addEventListener("click", () => {
+            menuBtn.classList.toggle("active");
+            nav.classList.toggle("active");
+        });
+    </script>
+
+    <!-- Type writing script -->
+    <script>
+        var TxtType = function(el, toRotate, period) {
+        this.toRotate = toRotate;
+        this.el = el;
+        this.loopNum = 0;
+        this.period = parseInt(period, 10) || 2000;
+        this.txt = '';
+        this.tick();
+        this.isDeleting = false;
+    };
+
+    TxtType.prototype.tick = function() {
+        var i = this.loopNum % this.toRotate.length;
+        var fullTxt = this.toRotate[i];
+
+        if (this.isDeleting) {
+        this.txt = fullTxt.substring(0, this.txt.length - 1);
+        } else {
+        this.txt = fullTxt.substring(0, this.txt.length + 1);
+        }
+
+        this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
+
+        var that = this;
+        var delta = 200 - Math.random() * 100;
+
+        if (this.isDeleting) { delta /= 2; }
+
+        if (!this.isDeleting && this.txt === fullTxt) {
+        delta = this.period;
+        this.isDeleting = true;
+        } else if (this.isDeleting && this.txt === '') {
+        this.isDeleting = false;
+        this.loopNum++;
+        delta = 500;
+        }
+
+        setTimeout(function() {
+        that.tick();
+        }, delta);
+    };
+
+    window.onload = function() {
+        var elements = document.getElementsByClassName('typewrite');
+        for (var i=0; i<elements.length; i++) {
+            var toRotate = elements[i].getAttribute('data-type');
+            var period = elements[i].getAttribute('data-period');
+            if (toRotate) {
+            new TxtType(elements[i], JSON.parse(toRotate), period);
+            }
+        }
+        // INJECT CSS
+        var css = document.createElement("style");
+        css.type = "text/css";
+        css.innerHTML = ".typewrite > .wrap { border-right: 0.08em solid #fff}";
+        document.body.appendChild(css);
+    };
+    </script>
+
+</body>
+</html>
